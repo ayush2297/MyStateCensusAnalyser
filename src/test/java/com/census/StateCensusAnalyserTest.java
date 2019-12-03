@@ -47,7 +47,7 @@ public class StateCensusAnalyserTest {
             int count = StateCensusAnalyser.openCsvBuilder(STATECENSUS_CSVFILE, StateCensus.class);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
-            Assert.assertEquals(CensusAnalyserException.CensusExceptionType.INCORRECT_DATA_ISSUE, e.type);
+            Assert.assertEquals(CensusAnalyserException.CensusExceptionType.DELIMITER_ISSUE, e.type);
 
         }
     }
