@@ -14,6 +14,7 @@ import java.util.*;
 
 public class StateCensusAnalyser {
     private static String POPULATION_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/populationwise_sort.json";
+    private static String POPULATION_DENSITY_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/populationDensitywise_sort.json";
     private static String NAME_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/namewise_sort.json";
     static List<StateCensus> censusList;
     static int censusCounter;
@@ -27,6 +28,7 @@ public class StateCensusAnalyser {
             System.out.println(censusList.toString());
             sortThisListBasedOnStateName(censusList);
             sortThisListBasedOnPopulation(censusList);
+            sortThisListBasedOnPopulationDensity(censusList);
             return censusList.size();
         } catch (CensusAnalyserException e){
             throw e;
@@ -81,6 +83,12 @@ public class StateCensusAnalyser {
         Comparator<StateCensus> c = (s1, s2) -> Integer.parseInt(s2.getPopulation()) - Integer.parseInt(s1.getPopulation());
         censusList.sort(c);
         writeThisListToJsonFile(POPULATION_FILE);
+    }
+
+    private static void sortThisListBasedOnPopulationDensity(List<StateCensus> censusList) {
+        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getDensityPerSqKm);
+        censusList.sort(c);
+        writeThisListToJsonFile(POPULATION_DENSITY_FILE);
     }
 
 
