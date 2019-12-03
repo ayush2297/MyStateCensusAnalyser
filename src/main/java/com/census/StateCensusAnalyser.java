@@ -15,7 +15,7 @@ public class StateCensusAnalyser {
     public StateCensusAnalyser() {
     }
 
-    public <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
+    public static <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
         int counter = 0;
         try {
             Iterator<Object> myIterator = getIterator(csvFilePath, myClass);
