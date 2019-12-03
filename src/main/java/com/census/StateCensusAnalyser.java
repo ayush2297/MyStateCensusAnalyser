@@ -7,6 +7,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -15,7 +16,9 @@ import java.util.*;
 public class StateCensusAnalyser {
     private static String POPULATION_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/populationwise_sort.json";
     private static String POPULATION_DENSITY_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/populationDensitywise_sort.json";
+    private static String AREA_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/areawise_sort.json";
     private static String NAME_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/namewise_sort.json";
+
     static List<StateCensus> censusList;
     static int censusCounter;
 
@@ -29,6 +32,8 @@ public class StateCensusAnalyser {
             sortThisListBasedOnStateName(censusList);
             sortThisListBasedOnPopulation(censusList);
             sortThisListBasedOnPopulationDensity(censusList);
+            sortThisListBasedOnArea(censusList);
+
             return censusList.size();
         } catch (CensusAnalyserException e){
             throw e;
@@ -80,15 +85,33 @@ public class StateCensusAnalyser {
     }
 
     private static void sortThisListBasedOnPopulation(List<StateCensus> censusList) {
-        Comparator<StateCensus> c = (s1, s2) -> Integer.parseInt(s2.getPopulation()) - Integer.parseInt(s1.getPopulation());
+        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getPopulation).reversed();
         censusList.sort(c);
         writeThisListToJsonFile(POPULATION_FILE);
     }
 
     private static void sortThisListBasedOnPopulationDensity(List<StateCensus> censusList) {
-        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getDensityPerSqKm);
+        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getDensityPerSqKm).reversed();
         censusList.sort(c);
         writeThisListToJsonFile(POPULATION_DENSITY_FILE);
+    }
+
+    private static void sortThisListBasedOnArea(List<StateCensus> censusList) {
+        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getAreaInSqKm).reversed();
+        censusList.sort(c);
+        writeThisListToJsonFile(AREA_FILE);
+    }
+
+    public void sortBasedOn(List<StateCensus> censusList, String methodName, Object objectClass) throws CensusAnalyserException {
+        try {
+            Method thisMethod = objectClass.getClass().getMethod(methodName);
+            Comparator<StateCensus> c = Comparator.comparing(StateCensus::thisMethod).reversed();
+            censusList.sort(c);
+            writeThisListToJsonFile(AREA_FILE);
+        } catch (NoSuchMethodException e) {
+            throw new CensusAnalyserException(CensusAnalyserException.CensusExceptionType.NO_SUCH_FIELD,
+                    "please enter a proper field to sort");
+        }
     }
 
 

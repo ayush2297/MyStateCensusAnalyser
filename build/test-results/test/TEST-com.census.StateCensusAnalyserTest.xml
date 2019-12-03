@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.census.StateCensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-03T13:46:52" hostname="bridgelabz" time="0.138">
+<testsuite name="com.census.StateCensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-03T14:08:24" hostname="bridgelabz" time="0.14">
   <properties/>
-  <testcase name="GivenTheStateCodesCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue" classname="com.census.StateCensusAnalyserTest" time="0.138"/>
+  <testcase name="GivenTheStateCodesCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue" classname="com.census.StateCensusAnalyserTest" time="0.14"/>
   <system-out><![CDATA[[stateName='Uttar Pradesh', population='199812341', areaInSqKm='240928', densityPerSqKm='828'
 , stateName='Maharashta', population='112372972', areaInSqKm='307713', densityPerSqKm='365'
 , stateName='Bihar', population='103804637', areaInSqKm='94163', densityPerSqKm='1102'
