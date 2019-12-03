@@ -8,29 +8,33 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class StateCensusAnalyser {
+
+    static ArrayList<Object> censusArray;
+    static int censusCounter;
 
     public StateCensusAnalyser() {
     }
 
     public static <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
-        int counter = 0;
         try {
             Iterator<Object> myIterator = getIterator(csvFilePath, myClass);
             while ( myIterator.hasNext() ) {
-                counter++;
-                Object myObj = myIterator.next();
+                censusCounter++;
+                Object currentObj = myIterator.next();
+                censusArray.add(currentObj);
                 //System.out.println(myObj.toString());
             }
         } catch (CensusAnalyserException e){
             throw e;
         } catch (RuntimeException e){
             throw new CensusAnalyserException(CensusAnalyserException.CensusExceptionType.DELIMITER_ISSUE,
-                    "might be some error related to delimiter at record no. : " +(counter+1));
+                    "might be some error related to delimiter at record no. : " +(censusCounter+1));
         }
-        return counter;
+        return censusCounter;
     }
 
     public static Iterator<Object> getIterator(String csvFilePath, Object myClass) throws CensusAnalyserException {
@@ -56,5 +60,6 @@ public class StateCensusAnalyser {
                     "Some other IO related exception");
         }
     }
+
 
 }
