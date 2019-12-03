@@ -26,6 +26,7 @@ public class StateCensusAnalyser {
             censusList = (getBean(csvFilePath, myClass)).parse();
             System.out.println(censusList.toString());
             sortThisListBasedOnStateName(censusList);
+            sortThisListBasedOnPopulation(censusList);
             return censusList.size();
         } catch (CensusAnalyserException e){
             throw e;
@@ -74,6 +75,12 @@ public class StateCensusAnalyser {
         Comparator<StateCensus> c = Comparator.comparing(StateCensus::getStateName);
         censusList.sort(c);
         writeThisListToJsonFile(NAME_FILE);
+    }
+
+    private static void sortThisListBasedOnPopulation(List<StateCensus> censusList) {
+        Comparator<StateCensus> c = (s1, s2) -> Integer.parseInt(s2.getPopulation()) - Integer.parseInt(s1.getPopulation());
+        censusList.sort(c);
+        writeThisListToJsonFile(POPULATION_FILE);
     }
 
 
