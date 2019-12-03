@@ -8,12 +8,11 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class StateCensusAnalyser {
 
-    static ArrayList<Object> censusArray;
+    static List<StateCensus> censusList;
     static int censusCounter;
 
     public StateCensusAnalyser() {
@@ -21,33 +20,27 @@ public class StateCensusAnalyser {
 
     public static <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
         try {
-            Iterator<Object> myIterator = getIterator(csvFilePath, myClass);
-            while ( myIterator.hasNext() ) {
-                censusCounter++;
-                Object currentObj = myIterator.next();
-                censusArray.add(currentObj);
-                //System.out.println(myObj.toString());
-            }
+            censusList = (getBean(csvFilePath, myClass)).parse();
         } catch (CensusAnalyserException e){
             throw e;
         } catch (RuntimeException e){
             throw new CensusAnalyserException(CensusAnalyserException.CensusExceptionType.DELIMITER_ISSUE,
                     "might be some error related to delimiter at record no. : " +(censusCounter+1));
         }
-        return censusCounter;
+        sortThisList(censusList);
+        System.out.println(censusList.toString());
+        return censusList.size();
     }
 
-    public static Iterator<Object> getIterator(String csvFilePath, Object myClass) throws CensusAnalyserException {
+    public static CsvToBean<StateCensus> getBean(String csvFilePath, Object myClass) throws CensusAnalyserException {
         Reader reader = null;
-        CsvToBean<Object> csvToBean;
         try {
             reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            csvToBean = new CsvToBeanBuilder(reader)
+            CsvToBean csvToBean = new CsvToBeanBuilder(reader)
                     .withType((Class) myClass)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-            Iterator<Object> myIterator = csvToBean.iterator();
-            return myIterator;
+            return csvToBean;
         } catch (NoSuchFileException e) {
             throw new CensusAnalyserException(CensusAnalyserException.CensusExceptionType.NO_SUCH_FILE,
                     "no such file exists. Please enter correct file");
@@ -61,5 +54,9 @@ public class StateCensusAnalyser {
         }
     }
 
+    private static void sortThisList(List<StateCensus> censusList) {
+        Comparator<StateCensus> c = (s1, s2) -> s1.getStateName().compareTo(s2.getStateName());
+        censusList.sort(c);
+    }
 
 }

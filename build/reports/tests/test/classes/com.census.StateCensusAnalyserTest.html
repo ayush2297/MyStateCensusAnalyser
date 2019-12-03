@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.084s</div>
+<div class="counter">0.105s</div>
 <p>duration</p>
 </div>
 </td>
@@ -64,7 +64,7 @@
 <a href="#tab0">Tests</a>
 </li>
 <li>
-<a href="#tab1">Standard error</a>
+<a href="#tab1">Standard output</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
@@ -78,66 +78,46 @@
 </tr>
 </thead>
 <tr>
-<td class="success">GivenTheStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException</td>
-<td class="success">0.084s</td>
+<td class="success">GivenTheStateCodesCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue</td>
+<td class="success">0.105s</td>
 <td class="success">passed</td>
 </tr>
 </table>
 </div>
 <div id="tab1" class="tab">
-<h2>Standard error</h2>
+<h2>Standard output</h2>
 <span class="code">
-<pre>com.census.CensusAnalyserException: delimiter error at line 1 OR might be some error related to headers or incorrect extension / input file 
-	at com.census.StateCensusAnalyser.getIterator(StateCensusAnalyser.java:51)
-	at com.census.StateCensusAnalyser.openCsvBuilder(StateCensusAnalyser.java:21)
-	at com.census.StateCensusAnalyserTest.GivenTheStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException(StateCensusAnalyserTest.java:37)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
-	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:118)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:175)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:157)
-	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:404)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63)
-	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:46)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55)
-	at java.lang.Thread.run(Thread.java:748)
+<pre>[stateName='Andhra Pradesh', population='49386799', areaInSqKm='162968', densityPerSqKm='303'
+, stateName='Arunachal Pradesh', population='1382611', areaInSqKm='0', densityPerSqKm='0'
+, stateName='Assam', population='31169272', areaInSqKm='78438', densityPerSqKm='397'
+, stateName='Bihar', population='103804637', areaInSqKm='94163', densityPerSqKm='1102'
+, stateName='Chattisgarh', population='25540196', areaInSqKm='135191', densityPerSqKm='189'
+, stateName='Goa', population='1457723', areaInSqKm='3702', densityPerSqKm='394'
+, stateName='Gujarat', population='60383628', areaInSqKm='196024', densityPerSqKm='308'
+, stateName='Haryana', population='25353081', areaInSqKm='44212', densityPerSqKm='573'
+, stateName='Himachal Pradesh', population='6864602', areaInSqKm='55673', densityPerSqKm='123'
+, stateName='Jammu and Kashmir', population='12548926', areaInSqKm='222236', densityPerSqKm='57'
+, stateName='Jharkhand', population='32966238', areaInSqKm='79714', densityPerSqKm='414'
+, stateName='Karnataka', population='61130704', areaInSqKm='191791', densityPerSqKm='319'
+, stateName='Kerala', population='33387677', areaInSqKm='38863', densityPerSqKm='859'
+, stateName='Madhya Pradesh', population='72597565', areaInSqKm='308245', densityPerSqKm='236'
+, stateName='Maharashta', population='112372972', areaInSqKm='307713', densityPerSqKm='365'
+, stateName='Manipur', population='2721756', areaInSqKm='0', densityPerSqKm='0'
+, stateName='Meghalaya', population='2964007', areaInSqKm='0', densityPerSqKm='0'
+, stateName='Mizoram', population='1091014', areaInSqKm='21081', densityPerSqKm='52'
+, stateName='Nagaland', population='1980602', areaInSqKm='16579', densityPerSqKm='119'
+, stateName='Odisha', population='41947358', areaInSqKm='155707', densityPerSqKm='269'
+, stateName='Punjab', population='27704236', areaInSqKm='50362', densityPerSqKm='550'
+, stateName='Rajasthan', population='68621012', areaInSqKm='342239', densityPerSqKm='201'
+, stateName='Sikkim', population='607688', areaInSqKm='7096', densityPerSqKm='86'
+, stateName='Tamil Nadu', population='72138958', areaInSqKm='130058', densityPerSqKm='555'
+, stateName='Telangana', population='35286757', areaInSqKm='114840', densityPerSqKm='307'
+, stateName='Tripura', population='3671032', areaInSqKm='10486', densityPerSqKm='350'
+, stateName='Uttar Pradesh', population='199812341', areaInSqKm='240928', densityPerSqKm='828'
+, stateName='Uttarakhand', population='10116752', areaInSqKm='53483', densityPerSqKm='189'
+, stateName='West Bengal', population='91347736', areaInSqKm='88752', densityPerSqKm='1029'
+]
+29
 </pre>
 </span>
 </div>
@@ -149,7 +129,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 5.2.1</a> at 3 Dec, 2019 4:20:09 PM</p>
+<a href="http://www.gradle.org">Gradle 5.2.1</a> at 3 Dec, 2019 5:30:02 PM</p>
 </div>
 </div>
 </body>

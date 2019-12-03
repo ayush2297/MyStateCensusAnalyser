@@ -3,7 +3,9 @@ package com.census;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class StateCensus {
+import java.util.Comparator;
+
+public class StateCensus implements Comparable<StateCensus>{
 
     @CsvBindByName(column = "State")
     private String stateName;
@@ -60,5 +62,16 @@ public class StateCensus {
                 ", areaInSqKm='" + areaInSqKm + '\'' +
                 ", densityPerSqKm='" + densityPerSqKm + '\''
                 +"\n";
+    }
+
+    @Override
+    public int compareTo(StateCensus stateCensus) {
+        return this.stateName.compareTo(stateCensus.stateName);
+    }
+
+    static class StateCensusComparator implements Comparator<StateCensus> {
+        public int compare(StateCensus obj1, StateCensus obj2) {
+            return obj1.getStateName().compareTo(obj2.getStateName());
+        }
     }
 }
