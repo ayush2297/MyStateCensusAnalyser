@@ -12,6 +12,9 @@ import java.util.Iterator;
 
 public class StateCensusAnalyser {
 
+    public StateCensusAnalyser() {
+    }
+
     public <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
         int counter = 0;
         try {
@@ -19,7 +22,7 @@ public class StateCensusAnalyser {
             while ( myIterator.hasNext() ) {
                 counter++;
                 Object myObj = myIterator.next();
-                System.out.println(myObj.toString());
+                //System.out.println(myObj.toString());
             }
         } catch (CensusAnalyserException e){
             throw e;
