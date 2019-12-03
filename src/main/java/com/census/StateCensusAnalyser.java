@@ -1,8 +1,10 @@
 package com.census;
 
+import com.google.gson.Gson;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -11,7 +13,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class StateCensusAnalyser {
-
+    private static String POPULATION_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/populationwise_sort.json";
+    private static String NAME_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/namewise_sort.json";
     static List<StateCensus> censusList;
     static int censusCounter;
 
@@ -21,14 +24,27 @@ public class StateCensusAnalyser {
     public static <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
         try {
             censusList = (getBean(csvFilePath, myClass)).parse();
-            sortThisListBasedOnStateName(censusList);
             System.out.println(censusList.toString());
+            sortThisListBasedOnStateName(censusList);
             return censusList.size();
         } catch (CensusAnalyserException e){
             throw e;
         } catch (RuntimeException e){
             throw new CensusAnalyserException(CensusAnalyserException.CensusExceptionType.DELIMITER_ISSUE,
                     "might be some error related to delimiter at record no. : " +(censusCounter+1));
+        }
+    }
+
+    private static void writeThisListToJsonFile(String writeToFile) {
+        Gson gson = new Gson();
+        String json = gson.toJson(censusList);
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(writeToFile);
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -55,8 +71,10 @@ public class StateCensusAnalyser {
     }
 
     private static void sortThisListBasedOnStateName(List<StateCensus> censusList) {
-        Comparator<StateCensus> c = (s1, s2) -> s1.getStateName().compareTo(s2.getStateName());
+        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getStateName);
         censusList.sort(c);
+        writeThisListToJsonFile(NAME_FILE);
     }
+
 
 }
