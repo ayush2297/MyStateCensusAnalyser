@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.census.StateCensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-03T10:38:44" hostname="bridgelabz" time="0.013">
+<testsuite name="com.census.StateCensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-03T10:41:42" hostname="bridgelabz" time="0.091">
   <properties/>
-  <testcase name="GivenTheStateCensusCsvFile_IfDoesntExist_ShouldThrowCensusAnalyserException" classname="com.census.StateCensusAnalyserTest" time="0.013"/>
+  <testcase name="GivenTheStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException" classname="com.census.StateCensusAnalyserTest" time="0.091"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[com.census.CensusAnalyserException: no such file exists. Please enter correct file
-	at com.census.StateCensusAnalyser.getIterator(StateCensusAnalyser.java:48)
+  <system-err><![CDATA[com.census.CensusAnalyserException: delimiter error at line 1 OR might be some error related to headers or incorrect extension / input file 
+	at com.census.StateCensusAnalyser.getIterator(StateCensusAnalyser.java:51)
 	at com.census.StateCensusAnalyser.openCsvBuilder(StateCensusAnalyser.java:21)
-	at com.census.StateCensusAnalyserTest.GivenTheStateCensusCsvFile_IfDoesntExist_ShouldThrowCensusAnalyserException(StateCensusAnalyserTest.java:26)
+	at com.census.StateCensusAnalyserTest.GivenTheStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException(StateCensusAnalyserTest.java:37)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
