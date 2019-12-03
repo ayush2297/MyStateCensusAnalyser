@@ -21,15 +21,15 @@ public class StateCensusAnalyser {
     public static <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
         try {
             censusList = (getBean(csvFilePath, myClass)).parse();
+            sortThisListBasedOnStateName(censusList);
+            System.out.println(censusList.toString());
+            return censusList.size();
         } catch (CensusAnalyserException e){
             throw e;
         } catch (RuntimeException e){
             throw new CensusAnalyserException(CensusAnalyserException.CensusExceptionType.DELIMITER_ISSUE,
                     "might be some error related to delimiter at record no. : " +(censusCounter+1));
         }
-        sortThisList(censusList);
-        System.out.println(censusList.toString());
-        return censusList.size();
     }
 
     public static CsvToBean<StateCensus> getBean(String csvFilePath, Object myClass) throws CensusAnalyserException {
@@ -54,7 +54,7 @@ public class StateCensusAnalyser {
         }
     }
 
-    private static void sortThisList(List<StateCensus> censusList) {
+    private static void sortThisListBasedOnStateName(List<StateCensus> censusList) {
         Comparator<StateCensus> c = (s1, s2) -> s1.getStateName().compareTo(s2.getStateName());
         censusList.sort(c);
     }
