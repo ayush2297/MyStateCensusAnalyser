@@ -11,13 +11,13 @@ public class StateCensus implements Comparable<StateCensus>{
     private String stateName;
 
     @CsvBindByName(column = "Population",required = true)
-    private int population;
+    private double population;
 
     @CsvBindByName(column = "AreaInSqKm")
-    private int areaInSqKm;
+    private double areaInSqKm;
 
     @CsvBindByName(column = "DensityPerSqKm", required = true)
-    private int densityPerSqKm;
+    private double densityPerSqKm;
 
     public StateCensus() {
 
@@ -31,27 +31,27 @@ public class StateCensus implements Comparable<StateCensus>{
         this.stateName = stateName;
     }
 
-    public int getPopulation() {
+    public double getPopulation() {
         return population;
     }
 
-    public void setPopulation(int population) {
+    public void setPopulation(double population) {
         this.population = population;
     }
 
-    public int getAreaInSqKm() {
+    public double getAreaInSqKm() {
         return areaInSqKm;
     }
 
-    public void setAreaInSqKm(int areaInSqKm) {
+    public void setAreaInSqKm(double areaInSqKm) {
         this.areaInSqKm = areaInSqKm;
     }
 
-    public int getDensityPerSqKm() {
+    public double getDensityPerSqKm() {
         return densityPerSqKm;
     }
 
-    public void setDensityPerSqKm(int densityPerSqKm) {
+    public void setDensityPerSqKm(double densityPerSqKm) {
         this.densityPerSqKm = densityPerSqKm;
     }
 

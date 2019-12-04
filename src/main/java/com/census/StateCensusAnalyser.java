@@ -7,13 +7,13 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class StateCensusAnalyser {
+public class StateCensusAnalyser <T> {
     private static String POPULATION_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/populationwise_sort.json";
     private static String POPULATION_DENSITY_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/populationDensitywise_sort.json";
     private static String AREA_FILE = "/home/admin97/Ayush/github/MyCensusAnalyser/src/main/resources/areawise_sort.json";
@@ -25,14 +25,11 @@ public class StateCensusAnalyser {
     public StateCensusAnalyser() {
     }
 
-    public static <T>  int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
+    public static int openCsvBuilder(String csvFilePath, Object myClass) throws CensusAnalyserException {
         try {
             censusList = (getBean(csvFilePath, myClass)).parse();
             System.out.println(censusList.toString());
-            sortThisListBasedOnStateName(censusList);
-            sortThisListBasedOnPopulation(censusList);
-            sortThisListBasedOnPopulationDensity(censusList);
-            sortThisListBasedOnArea(censusList);
+            sort("population",true, POPULATION_FILE);
 
             return censusList.size();
         } catch (CensusAnalyserException e){
@@ -78,41 +75,37 @@ public class StateCensusAnalyser {
         }
     }
 
-    private static void sortThisListBasedOnStateName(List<StateCensus> censusList) {
-        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getStateName);
-        censusList.sort(c);
-        writeThisListToJsonFile(NAME_FILE);
-    }
-
-    private static void sortThisListBasedOnPopulation(List<StateCensus> censusList) {
-        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getPopulation).reversed();
-        censusList.sort(c);
-        writeThisListToJsonFile(POPULATION_FILE);
-    }
-
-    private static void sortThisListBasedOnPopulationDensity(List<StateCensus> censusList) {
-        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getDensityPerSqKm).reversed();
-        censusList.sort(c);
-        writeThisListToJsonFile(POPULATION_DENSITY_FILE);
-    }
-
-    private static void sortThisListBasedOnArea(List<StateCensus> censusList) {
-        Comparator<StateCensus> c = Comparator.comparing(StateCensus::getAreaInSqKm).reversed();
-        censusList.sort(c);
-        writeThisListToJsonFile(AREA_FILE);
-    }
-
-    public void sortBasedOn(List<StateCensus> censusList, String methodName, Object objectClass) throws CensusAnalyserException {
+    public static void sort(String fieldName, boolean reverse, String filePath){
         try {
-            Method thisMethod = objectClass.getClass().getMethod(methodName);
-            Comparator<StateCensus> c = Comparator.comparing(StateCensus::thisMethod).reversed();
-            censusList.sort(c);
-            writeThisListToJsonFile(AREA_FILE);
-        } catch (NoSuchMethodException e) {
-            throw new CensusAnalyserException(CensusAnalyserException.CensusExceptionType.NO_SUCH_FIELD,
-                    "please enter a proper field to sort");
+            Comparator myComparator = sortBasedOn(fieldName);
+            if(reverse) {
+                Collections.sort(censusList, myComparator);
+            } else {
+                Collections.sort(censusList,Collections.reverseOrder(myComparator));
+            }
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
         }
+        writeThisListToJsonFile(filePath);
     }
 
-
+    public static Comparator<StateCensus> sortBasedOn(String fieldName) throws CensusAnalyserException {
+        Comparator<StateCensus> comparator = new Comparator<StateCensus>() {
+            @Override
+            public int compare(StateCensus obj1, StateCensus obj2) {
+                try {
+                    Field thisField = StateCensus.class.getDeclaredField(fieldName);
+                    thisField.setAccessible(true);
+                    Comparable stateCensusField1 = (Comparable) thisField.get(obj1);
+                    Comparable stateCensusField2 = (Comparable) thisField.get(obj2);
+                    return stateCensusField1.compareTo(stateCensusField2);
+                } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+                    e.printStackTrace();
+// when proper field is not entered sorting or any exception occurs
+                    return 0;
+                }
+            }
+        };
+        return comparator;
+    }
 }
